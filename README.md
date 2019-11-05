@@ -1,2 +1,47 @@
 # docker-magics
-ECMWF Magics Software packaged in a docker container.
+[![Docker Automated build](https://img.shields.io/docker/cloud/automated/eduardrosert/magics.svg)](https://hub.docker.com/r/eduardrosert/magics)
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/eduardrosert/magics.svg)](https://hub.docker.com/r/eduardrosert/magics)
+
+ECMWF [magics](https://github.com/ecmwf/magics) software, including the Magics python module packaged to run in a docker container.
+
+# Run pre-built image with Docker
+The pre-built image ``eduardrosert/magics`` is available on [Dockerhub](https://hub.docker.com/r/eduardrosert/magics). If you have Docker already running on your machine, just do the following to run the image.
+
+## Run selfcheck
+Run the python module Magics selfcheck:
+```bash
+docker run --rm  eduardrosert/magics
+```
+You should see something like this:
+```
+Found: Magics 'Magics 4.2.0 (64 bit)'.
+Your system is ready.
+```
+
+## Run interactive shell
+Run interactive shell ``/bin/bash`` in docker image ``eduardrosert/magics`` or any other command for that matter overriding the default CMD instruction from the docker image:
+```bash
+docker run --rm -i -t eduardrosert/magics /bin/bash
+```
+
+# Build image manually
+You need git, Docker, and make installed on the machine to build the image as follows. 
+
+1. First clone the git repo:
+```bash
+git clone https://github.com/EduardRosert/docker-magics
+```
+2. Switch to ``docker-magics`` folder an run:
+```bash
+make
+```
+3. Check if image creation was successful:
+```bash
+docker images
+```
+You should see the newly created image ``eduardrosert/magics`` with the tag ``latest`` in the list:
+```
+REPOSITORY                                TAG                 IMAGE ID            CREATED              SIZE
+eduardrosert/magics                       latest              9e9d5454675f        About a minute ago   631MB
+...
+```

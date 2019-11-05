@@ -1,3 +1,6 @@
+# Slim Docker multi-stage build
+# for Magics
+
 # Build image
 FROM python:3.8.0-slim-buster as build
 
@@ -77,11 +80,9 @@ RUN set -ex \
     && pip install -r /root/requirements.txt
 
 # Install ecbuild
-ARG ECBUILD_VERSION
-# export ECBUILD_VERSION=2019.07.1
-
+ARG ECBUILD_VERSION=2019.07.1
 RUN set -eux \
-    && mkdir /src \
+    && mkdir -p /src/ \
     && cd /src \
     && git clone https://github.com/ecmwf/ecbuild.git \
     && cd ecbuild \
@@ -94,11 +95,12 @@ RUN set -eux \
 
 # Install eccodes
 # requires ecbuild
+ARG ECCODES_VERSION=2.14.0
 RUN set -eux \
-    && wget https://confluence.ecmwf.int/download/attachments/45757960/eccodes-2.14.0-Source.tar.gz?api=v2 --output-document=eccodes.tar.gz \
+    && wget https://confluence.ecmwf.int/download/attachments/45757960/eccodes-${ECCODES_VERSION}-Source.tar.gz?api=v2 --output-document=eccodes.tar.gz \
     && tar -xf eccodes.tar.gz \
     && mkdir -p /src/ \
-    && mv eccodes-2.14.0-Source /src/eccodes \
+    && mv eccodes-${ECCODES_VERSION}-Source /src/eccodes \
     && mkdir -p /build/eccodes \
     && cd /build/eccodes \
     && /usr/local/bin/ecbuild /src/eccodes -DECMWF_GIT=https -DCMAKE_BUILD_TYPE=Release \
@@ -108,13 +110,12 @@ RUN set -eux \
 
 # Install Magics
 # requires ecbuild, eccodes
-#ARG MAGICS_BUNDLE_VERSION
-
+ARG MAGICS_BUNDLE_VERSION=4.2.0.6
 RUN set -eux \
-    && wget https://confluence.ecmwf.int/download/attachments/3473464/Magics-4.2.0-Source.tar.gz?api=v2 --output-document=magics-bundle.tar.gz \
+    && wget https://confluence.ecmwf.int/download/attachments/3473464/Magics-${MAGICS_BUNDLE_VERSION}-Source.tar.gz?api=v2 --output-document=magics-bundle.tar.gz \
     && tar -xf magics-bundle.tar.gz \
     && mkdir -p /src/ \
-    && mv Magics-4.2.0-Source /src/magics-bundle \
+    && mv Magics-${MAGICS_BUNDLE_VERSION}-Source /src/magics-bundle \
     && mkdir -p /build/magics-bundle \
     && cd /build/magics-bundle \
     && /usr/local/bin/ecbuild /src/magics-bundle -DECMWF_GIT=https -DCMAKE_BUILD_TYPE=Release \
@@ -132,17 +133,6 @@ RUN set -ex \
 # Run-time image.
 #
 FROM debian:stable-slim
-
-
-# Use a reliable Debian mirror (https://github.com/rgeissert/http-redirector/issues/75)
-RUN set -ex \
-    && sed --in-place 's/httpredir.debian.org/ftp.uk.debian.org/' /etc/apt/sources.list
-
-# Ensure ECMWF's HTTP proxy does not get in the way (thanks to bentorey.hernandez@ecmwf.int).
-# RUN set -ex \
-#     && echo 'Acquire::http::Pipeline-Depth "0";' > /etc/apt/apt.conf.d/99fixbadproxy \
-#     && echo 'Acquire::http::No-Cache=True;' >> /etc/apt/apt.conf.d/99fixbadproxy \
-#     && echo 'Acquire::BrokenProxy=true;' >> /etc/apt/apt.conf.d/99fixbadproxy
 
 # Install run-time depencencies.
 # Delete resources after installation
@@ -219,6 +209,7 @@ ENV \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
+# Run selfcheck
 CMD python -m Magics selfcheck
 
 # METADATA
