@@ -1,11 +1,14 @@
 # docker-magics
 [![Docker Automated build](https://img.shields.io/docker/cloud/automated/eduardrosert/magics.svg)](https://hub.docker.com/r/eduardrosert/magics)
 [![Docker Build Status](https://img.shields.io/docker/cloud/build/eduardrosert/magics.svg)](https://hub.docker.com/r/eduardrosert/magics)
+[![Docker Image Layers](https://images.microbadger.com/badges/image/eduardrosert/magics.svg)](https://microbadger.com/images/eduardrosert/magics "Get your own image badge on microbadger.com")
+[![Docker Version](https://images.microbadger.com/badges/version/eduardrosert/magics.svg)](https://microbadger.com/images/eduardrosert/magics "Get your own version badge on microbadger.com")
+[![Docker Commit Status](https://images.microbadger.com/badges/commit/eduardrosert/magics.svg)](https://microbadger.com/images/microscaling/microscaling "Get your own commit badge on microbadger.com")
 
-ECMWF [magics](https://github.com/ecmwf/magics) software, including the Magics python module packaged to run in a docker container.
+ECMWF [Magics](https://github.com/ecmwf/magics) software, including the [Magics python module](https://pypi.org/project/Magics/) packaged to run in a docker container.
 
 # Run pre-built image with Docker
-The pre-built image ``eduardrosert/magics`` is available on [Dockerhub](https://hub.docker.com/r/eduardrosert/magics). If you have Docker already running on your machine, just do the following to run the image.
+The pre-built image ``eduardrosert/magics`` is available on [Dockerhub](https://hub.docker.com/r/eduardrosert/magics). If you already have Docker running on your machine, just do the following to run the image.
 
 ## Run selfcheck
 Run the python module Magics selfcheck:

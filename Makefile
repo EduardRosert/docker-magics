@@ -8,7 +8,7 @@ TEST_CMD := python -m Magics selfcheck
 
 # META
 DOCKER_REPO := eduardrosert/magics
-GIT_HASH := $(shell git rev-parse --short HEAD)
+SOURCE_COMMIT := $(shell git rev-parse HEAD)
 GIT_TAG  := $(shell git tag)
 
 # Find out if the working directory is clean
@@ -19,16 +19,16 @@ endif
 
 GIT_URL := $$(git remote get-url --push origin)
 LATEST  := ${DOCKER_REPO}:latest
-DATE    := $$(date -u +”%Y-%m-%dT%H:%M:%SZ)
+DATE    := $$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
 # If this is not a tagged version
 # replace docker tag with 'latest'
 ifeq ('${GIT_TAG}','')
-IMAGE_NAME = ${DOCKER_REPO}:latest
+DOCKER_TAG = latest
 else
-IMAGE_NAME = ${DOCKER_REPO}:version-${GIT_TAG}
+DOCKER_TAG = version-${GIT_TAG}
 endif
-
+IMAGE_NAME = ${DOCKER_REPO}:${DOCKER_TAG}${DOCKER_TAG_SUFFIX}
 
 # If this git repo has no remote
 # url, set it to <unknown>
@@ -48,8 +48,8 @@ build:
         --build-arg ECCODES_VERSION=${ECCODES_VERSION} \
 		--build-arg BUILD_DATE=${DATE} \
 		--build-arg VCS_URL=${GIT_URL} \
-		--build-arg VCS_REF=${GIT_HASH} \
-		--build-arg VERSION=${GIT_TAG} \
+		--build-arg VCS_REF=${SOURCE_COMMIT} \
+		--build-arg VERSION=${DOCKER_TAG} \
 		--build-arg http_proxy=${http_proxy} \
 		--build-arg https_proxy=${https_proxy} \
 		--build-arg ftp_proxy=${ftp_proxy} \
@@ -60,13 +60,13 @@ build:
 	@docker tag ${IMAGE_NAME} ${LATEST}
 
 run:
-	@docker run --rm ${IMAGE_NAME}
+	@docker run --rm -i -t ${IMAGE_NAME}
 
 run-interactive:
 	@docker run --rm -i -t ${IMAGE_NAME} sh
 
 test:
-	@docker run --rm ${IMAGE_NAME} ${TEST_CMD}
+	@docker run --rm -i -t ${IMAGE_NAME} ${TEST_CMD}
 
 login:
 	@docker login
