@@ -18,7 +18,7 @@
 MAGICS_BUNDLE_VERSION="4.2.0"
 ECBUILD_VERSION="2019.07.1"
 ECCODES_VERSION="2.14.0"
-GIT_URL=$(git remote get-url --push origin)
+GIT_URL=$(git config --get remote.origin.url)
 DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
 docker build \
