@@ -1,9 +1,14 @@
 # docker-magics
+
+## Git
+[![Git Tag](https://img.shields.io/github/v/tag/eduardrosert/docker-magics)](https://github.com/eduardrosert/docker-magics/releases)
+[![License](https://img.shields.io/github/license/eduardrosert/docker-magics)](https://github.com/eduardrosert/docker-magics)
+## Docker
 [![Docker Automated build](https://img.shields.io/docker/cloud/automated/eduardrosert/magics.svg)](https://hub.docker.com/r/eduardrosert/magics)
 [![Docker Build Status](https://img.shields.io/docker/cloud/build/eduardrosert/magics.svg)](https://hub.docker.com/r/eduardrosert/magics)
-[![Docker Image Layers](https://images.microbadger.com/badges/image/eduardrosert/magics.svg)](https://microbadger.com/images/eduardrosert/magics "Get your own image badge on microbadger.com")
-[![Docker Version](https://images.microbadger.com/badges/version/eduardrosert/magics.svg)](https://microbadger.com/images/eduardrosert/magics "Get your own version badge on microbadger.com")
-[![Docker Commit Status](https://images.microbadger.com/badges/commit/eduardrosert/magics.svg)](https://microbadger.com/images/microscaling/microscaling "Get your own commit badge on microbadger.com")
+[![Docker Pulls](https://img.shields.io/docker/pulls/eduardrosert/magics)](https://hub.docker.com/r/eduardrosert/magics)
+[![Docker Image Version](https://images.microbadger.com/badges/version/eduardrosert/magics.svg)](https://microbadger.com/images/eduardrosert/magics "Get your own version badge on microbadger.com")
+[![Docker Commit Reference](https://images.microbadger.com/badges/commit/eduardrosert/magics.svg)](https://microbadger.com/images/microscaling/microscaling "Get your own commit badge on microbadger.com")
 
 ECMWF [Magics](https://github.com/ecmwf/magics) software, including the [Magics python module](https://pypi.org/project/Magics/) packaged to run in a docker container.
 
