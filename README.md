@@ -1,5 +1,12 @@
 # docker-magics
 
+__Attention__: My Dockerfile was merged to the ECMWF Magics repository at https://github.com/ecmwf/magics, so now an official docker image ``ecmwf/magics`` is available on [dockerhub](https://hub.docker.com/r/ecmwf/magics)! 
+
+__Please use the official image!__
+```bash
+docker run --rm -i -t ecmwf/magics
+```
+
 ## Git
 [![Git Tag](https://img.shields.io/github/v/tag/eduardrosert/docker-magics)](https://github.com/eduardrosert/docker-magics/releases)
 [![License](https://img.shields.io/github/license/eduardrosert/docker-magics)](https://github.com/eduardrosert/docker-magics)
